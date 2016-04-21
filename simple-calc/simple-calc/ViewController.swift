@@ -32,7 +32,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func Op(button: UIButton) {
-        op = op + button.titleLabel!.text!
+        op = button.titleLabel!.text!
         input = input + button.titleLabel!.text!
         bar.text = input
     }
@@ -55,16 +55,17 @@ class ViewController: UIViewController {
             } else {
                 result = "\(first % second)"
             }
+            bar.text = result
         } else if input.containsString("Count") || input.containsString("Avg") || input.containsString("Fact") {
             let separated = input.componentsSeparatedByString(op)
-            if separated.last == "count" {
-                result = "\(separated.count - 1)"
-            } else if separated.last == "avg" {
+            if input.containsString("Count") {
+                result = "\(separated.count)"
+            } else if input.containsString("Avg") {
                 var sum : Int? = 0
-                for index in 0...separated.count-2 {
+                for index in 0...separated.count - 1 {
                     sum = sum! + Int(separated[index])!
                 }
-                var length = separated.count - 1
+                var length = separated.count
                 result = "\(sum! / length)"
             } else {
                 var last : Int? = Int(separated[0])
@@ -77,11 +78,13 @@ class ViewController: UIViewController {
                 }
                 result = "\(factorial(last!))"
             }
+            bar.text = result
         } else {
             result = "please type in valid input!"
+            bar.text = result
         }
+        input = ""
     }
-        
 }
 
 
